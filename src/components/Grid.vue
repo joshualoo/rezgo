@@ -117,11 +117,10 @@ export default {
         }
     },
     mounted(){
-      const API_URL = '//parsernew.rzg.ca/test/awesome.json';
-      // const API_URL = '//joshualoo.ca/test/awesome.json';
+      // const API_URL = 'http://parsernew.rzg.ca/test/awesome.json';
+      const API_URL = '//joshualoo.ca/test/awesome.json';
         axios
             .get(API_URL)
-            // .get('//parsernew.rzg.ca/test/awesome.json')
             .then(response => (
                 //console.log(response.data.item),
                 this.num = response.data.total,
