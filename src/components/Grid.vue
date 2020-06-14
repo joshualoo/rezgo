@@ -86,6 +86,16 @@
                   </span>
                 </p>
               </div>
+
+              <div class="column overview">
+                <p class="overview__copy overview" v-bind:class="[isClicked ? 'clicked' : '']"><span v-html="item.details.overview.trim()"></span></p>  
+                <p class="overview__copy itinerary" v-bind:class="[isClicked ? 'clicked' : '']"><span v-html="item.details.itinerary"></span></p>  
+
+                <a class="more-info" v-on:click="isHidden = !isHidden; toggleClass()">
+                  <i class="fas fa-align-left"></i>
+                  <span v-if="isHidden"> more</span> <span v-else> less</span> info
+                </a>
+              </div>
             </div>    
         </div>
     </section>    
@@ -113,8 +123,14 @@ export default {
             num:null,
             items: null,
             isHidden:true,
+            isClicked:false,
             newLabelTime:1814400
         }
+    },
+    methods:{
+      toggleClass: function(){
+        this.isClicked = !this.isClicked;
+      }
     },
     mounted(){
       // const API_URL = 'http://parsernew.rzg.ca/test/awesome.json';
@@ -150,6 +166,9 @@ section.section{
 .column.details{
   margin:1rem 0 0;  
   line-height:1.8;
+}
+.column.overview{
+  transition:height 0.3s ease;
 }
 @media (max-width:1200px){
   .column.item-column{
@@ -204,6 +223,38 @@ h2.name{
 p.details{
   font-size:0.9rem;
   line-height:1.8;
+}
+a.more-info{
+  font-size:0.9rem;
+  color:#f76c00;
+  transition:0.4s ease all;
+}
+a.more-info:hover{
+  opacity:0.85;
+}
+p.overview__copy{
+  font-size:0.8rem;
+  line-height:1.6;
+  max-height: 0;
+  transition: all 0.4s ease-out;
+  overflow: hidden;
+}
+.overview__copy.itinerary{
+}
+.overview__copy.overview:before{
+  content:'Overview';
+  font-weight:500;
+  font-size:0.9rem;
+}
+.overview__copy.itinerary:before{
+  content:'What you\'ll be doing';
+  font-weight:500;
+  font-size:0.9rem;
+}
+.overview__copy.clicked{
+  padding-bottom:0.75rem;
+  max-height: 500px;
+  transition: max-height 0.4s ease-in;
 }
 span.new{
   background:#f76c00;
